@@ -1,0 +1,49 @@
+const Discord = require('discord.js');
+const bot = new Discord.Client();
+
+const prefix = "!"
+
+bot.on('ready', () => {['']
+  console.log('I am ready!');
+});
+
+// autorole
+
+bot.on('guildMemberAdd', member => {
+let guild = member.guild;
+let joinRole = guild.roles.find('name', 'Community');
+member.addRole(joinRole);
+});
+
+// !invite command
+
+bot.on('message', message => {
+  if(message.author.bot) return;
+  if(!message.content.startsWith(prefix)) return;
+
+  if (message.content.startsWith(prefix + 'invite')) {
+      message.channel.sendMessage('an endless invite link: https://discord.gg/aPMxB5v');
+    }});
+
+// !rules command
+
+    bot.on('message', message => {
+      if(message.author.bot) return;
+      if(!message.content.startsWith(prefix)) return;
+
+      if (message.content.startsWith(prefix + 'rules')) {
+          message.channel.sendMessage('ehh,nothing here.');
+  }
+    });
+
+    // !status command
+
+    bot.on('message', message => {
+      if(message.author.bot) return;
+      if(!message.content.startsWith(prefix)) return;
+
+      if (message.content.startsWith(prefix + 'status')) {
+          message.channel.sendMessage('Im ready.');
+}
+    });
+bot.login(' ');
