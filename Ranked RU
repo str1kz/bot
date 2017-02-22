@@ -1,0 +1,113 @@
+const Discord = require('discord.js');
+const bot = new Discord.Client();
+
+const prefix = "!"
+
+bot.on('ready', () => {['']
+  console.log('I am ready!');
+});
+
+bot.on('guildMemberAdd', member => {
+let guild = member.guild;
+let joinRole = guild.roles.find('name', 'Community');
+member.addRole(joinRole);
+
+guild.defaultChannel.sendMessage(`Добро пожаловать на сервер , ${member.user}! **Пожалуйста , прочитайте <#281399718926614529>!** Вы так же **можете получить роль** , для этого Вам нужно написать в чат *"!Android"* или *"!iOS"* в зависимости от Вашей платформы. Если Вы хотите начать играть в ранг , **используйте команду *"!set"* и Ваш никнейм из игры через пробел**!`)
+
+console.log(`console.log: Community Role added - ${message.author.username}`);
+});
+
+bot.on('message', message => {
+
+  if (message.author.bot) return;
+  if (message.channel.type === 'dm') return;
+
+let guild = message.member.guild;
+// let joinRole = guild.roles.find('name', '');
+let androidRole = guild.roles.find('name', 'Android');
+let iosRole = guild.roles.find('name', 'iOS');
+
+if(!message.content.startsWith(prefix)) return;
+
+if (message.content.startsWith(prefix + 'Android') || message.content.startsWith(prefix + 'android') ) {
+  if (message.member.roles.has(androidRole.id)) {
+      message.channel.sendMessage('У Вас уже есть эта роль!');
+      console.log(`console.log: Member already has Android Role - ${message.author.username}`);
+  }
+  else {
+  message.member.addRole(androidRole);
+  message.channel.sendMessage('Ура! Вы получили роль!');
+  console.log(`console.log: Android Role added - ${message.author.username}`);
+}};
+
+if (message.content.startsWith(prefix + 'iOS') || message.content.startsWith(prefix + 'IOS') || message.content.startsWith(prefix + 'ios')) {
+  if (message.member.roles.has(iosRole.id)) {
+      message.channel.sendMessage('У Вас уже есть эта роль!');
+      console.log(`console.log: Member already has iOS Role - ${message.author.username}`);
+  }
+  else {
+  // message.member.removeRole(joinRole);
+  message.member.addRole(iosRole);
+  message.channel.sendMessage('Ура! Вы получили роль!');
+  console.log(`console.log: iOS Role added - ${message.author.username}`);
+}};
+
+});
+
+bot.on('message', message => {
+
+  if (message.author.bot) return;
+  if (message.channel.type === 'dm') return;
+
+  let guild = message.member.guild;
+  let bronzeRole = guild.roles.find('name', 'Bronze');
+  var ign = message.content;
+  var realIgn = ign.substr('4');
+
+  if(!message.content.startsWith(prefix)) return;
+
+  if(message.content.startsWith(prefix + 'set info')) {
+    message.channel.sendMessage('Используя команду **"!set"** ,пожалуйста,учтите,что **Вам нужно написать её в <#270535325774905345> и указать Ваш точный Никнейм после "!set"** , исправить ошибку можно **только написав модераторам в <#270535398881493002>**.')
+  }
+  else {
+
+  if (message.content.startsWith(prefix + 'set') || message.content.startsWith(prefix + 'SET')) {
+  if(message.channel.id === '270535325774905345') {
+    if (message.content === (prefix + 'set')) {
+      message.channel.sendMessage('Пожалуйста, укажите Ваш **никнейм из игры после** *"!set"*.')
+    }
+    else {
+    if (message.member.roles.has(bronzeRole.id)) {
+        message.channel.sendMessage('Вы уже участник раговых матчей! Если Вы хотите сменить свой ник ,то ,пожалуйста, напишите нам в <#270535398881493002>,спасибо!');
+        console.log(`console.log: User already a Member - ${message.author.username}`);
+      }
+   else {
+    message.member.addRole(bronzeRole);
+    message.member.setNickname('0 -' + realIgn);
+    message.channel.sendMessage('Ура! Вы получили роль Бронзы и возможность играть в Ранговые Матчи!');
+    console.log(`console.log: New Member Role added - ${message.author.username}`);
+  };
+};
+}
+else {
+message.channel.sendMessage('Пожалуйста,напишите данную команду в <#270535325774905345>!');
+  };
+}
+ };
+});
+
+bot.on('message', message => {
+
+  if (message.author.bot) return;
+  if (message.channel.type === 'dm') return;
+
+  let guild = message.member.guild;
+
+  if(!message.content.startsWith(prefix)) return;
+
+  if(message.content.startsWith(prefix + 'info')) {
+message.channel.sendMessage('Основную информацию Вы можете получить в <#281399718926614529>. Для того,чтобы начать игру в Ранговых Матчах,Вам нужно **использовать команду "!set" после которой Вы и пишите Ваш никнейм в игре**. После этого Вы получите роль Бронзы и возможность играть в ранговые матчи!');
+  }});
+
+
+bot.login(' ');
